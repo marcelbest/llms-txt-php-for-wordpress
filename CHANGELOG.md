@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-06-09
+
+### Performance
+
+- `get_excluded_ids()` now primes the post meta cache in a single query (`update_meta_cache()`), so the per-post `_noindex` lookups read from cache instead of each running its own query (N+1 → 2 queries). Behaviour and output are unchanged; the `llms_txt_post_excluded` filter stays per-post.
+
 ## [1.0.0] - 2026-06-07
 
 First public release. Extracted from the classic theme on marcelbest.com and hardened for general use. Full walkthrough: <https://marcelbest.com/webdesign/2026/llms-txt-fuer-wordpress-ohne-plugin/>

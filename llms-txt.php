@@ -80,6 +80,13 @@ function yourtheme_llms_get_excluded_ids( $post_type ) {
         'posts_per_page' => -1,
         'fields'         => 'ids',
     ) );
+
+    // Prime the post meta cache in a single query, so the per-post _noindex
+    // lookups in yourtheme_llms_is_excluded() hit the cache instead of each
+    // running its own query (avoids N+1). The filter stays per-post, so
+    // extensions can still add their own exclusion logic.
+    update_meta_cache( 'post', $posts );
+
     return array_values( array_filter( $posts, 'yourtheme_llms_is_excluded' ) );
 }
 endif;

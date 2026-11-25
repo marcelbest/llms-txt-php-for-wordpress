@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] - 2026-11-25
+
+### Fixed
+
+- `/llms.txt` and the full-content endpoints no longer redirect with 301 to a trailing-slash URL (`/llms.txt/`) when the permalink structure ends with a slash. A new `redirect_canonical` filter (`yourtheme_llms_redirect_canonical()`) skips the canonical redirect for all llms endpoints, so crawlers that do not follow redirects get the file directly. Rewrite rules are unchanged; no permalink flush needed.
+
 ## [1.0.1] - 2026-06-09
 
 ### Performance

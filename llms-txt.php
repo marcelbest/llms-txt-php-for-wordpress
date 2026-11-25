@@ -34,6 +34,24 @@ function yourtheme_llms_query_vars( $vars ) {
 endif;
 add_filter( 'query_vars', 'yourtheme_llms_query_vars' );
 
+if ( ! function_exists( 'yourtheme_llms_redirect_canonical' ) ) :
+/**
+ * Keeps the file names without a trailing slash. With a permalink structure
+ * ending in a slash WordPress would redirect /llms.txt to /llms.txt/.
+ *
+ * @param string $redirect_url The redirect URL.
+ * @return string|false
+ */
+function yourtheme_llms_redirect_canonical( $redirect_url ) {
+    if ( get_query_var( 'yourtheme_llms' ) || get_query_var( 'yourtheme_llms_full' ) ) {
+        return false;
+    }
+
+    return $redirect_url;
+}
+endif;
+add_filter( 'redirect_canonical', 'yourtheme_llms_redirect_canonical' );
+
 if ( ! function_exists( 'yourtheme_llms_template_redirect' ) ) :
 function yourtheme_llms_template_redirect() {
     $is_llms      = get_query_var( 'yourtheme_llms' );
